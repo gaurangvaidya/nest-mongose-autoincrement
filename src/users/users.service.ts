@@ -15,4 +15,7 @@ export class UsersService {
       data: user,
     };
   }
+  async getUser(id: number) {
+    return this.usersRepositoryService.findUserById(id);
+  }
 }

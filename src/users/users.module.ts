@@ -15,11 +15,8 @@ import { CommonService } from 'src/common/common.service';
         imports: [CommonModule],
         useFactory: (commonService: CommonService) => {
           userSchema.pre('save', async function () {
-            const sequence = await commonService.incrementCounter(
-              User.name,
-              '_id',
-            );
-            this._id = sequence;
+            console.log(this);
+            await commonService.incrementCounter<User>(User.name, '_id', this);
           });
           return userSchema;
         },

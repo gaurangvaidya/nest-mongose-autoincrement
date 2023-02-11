@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { HydratedDocument, Model } from 'mongoose';
 import { Counter, CounterDocument } from './schemas/counter.schema';
 
 @Injectable()
@@ -8,10 +8,11 @@ export class CommonService {
   constructor(
     @InjectModel(Counter.name) private counterModel: Model<CounterDocument>,
   ) {}
-  async incrementCounter(
+  async incrementCounter<T>(
     collectionName: string,
     fieldName: string,
-  ): Promise<number> {
+    document: HydratedDocument<T>,
+  ): Promise<void> {
     const counter = await this.counterModel.findOneAndUpdate(
       { collectionName, fieldName },
       { $inc: { sequence: 1 } },
@@ -22,8 +23,9 @@ export class CommonService {
         collectionName,
         fieldName,
       });
-      return newCounter.sequence;
+      document[fieldName] = newCounter.sequence;
+    } else {
+      document[fieldName] = counter.sequence;
     }
-    return counter.sequence;
   }
 }

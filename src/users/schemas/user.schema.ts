@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, SchemaTypes } from 'mongoose';
+import { Posts } from 'src/post/schemas/post.schema';
 
 @Schema()
 export class User {
@@ -7,8 +8,8 @@ export class User {
   _id: number;
   @Prop()
   email: string;
-  // @Prop()
-  // posts: Post;
+  @Prop({ type: SchemaTypes.Number, ref: 'Posts' })
+  posts: Posts;
 }
 export const userSchema = SchemaFactory.createForClass(User);
 export type UserDocument = HydratedDocument<User>;

@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { CountersModule } from './counters/counters.module';
 import { CommonModule } from './common/common.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       'mongodb+srv://admin:admin@cluster0.juweczz.mongodb.net/?retryWrites=true&w=majority',
       { dbName: 'counterTest' },
     ),
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
