@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { Posts } from 'src/post/schemas/post.schema';
 
-@Schema()
+@Schema({})
 export class User {
   @Prop()
   _id: number;
